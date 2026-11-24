@@ -3,9 +3,33 @@ cpu 8086
 org 0x7C00
 
 KERNEL_OFFSET equ 0x7E00
-KERNEL_SECTORS equ 1
+KERNEL_SECTORS equ 8
 
 start:
+    jmp short boot
+    nop
+
+    db "SOLARO  "
+    dw 512
+    db 2
+    dw KERNEL_SECTORS + 1
+    db 2
+    dw 112
+    dw 720
+    db 0xFD
+    dw 2
+    dw 9
+    dw 2
+    dd 0
+    dd 0
+    db 0
+    db 0
+    db 0x29
+    dd 0x12345678
+    db "SOLARO     "
+    db "FAT12   "
+
+boot:
     cli
     xor ax, ax
     mov ds, ax

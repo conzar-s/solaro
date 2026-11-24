@@ -13,11 +13,11 @@ $(BUILD):
 $(BUILD)/boot.bin: boot/boot.asm | $(BUILD)
 	$(ASM) -f bin -o $@ $<
 
-$(BUILD)/kernel.bin: kernel/kernel.asm | $(BUILD)
-	$(ASM) -f bin -o $@ $<
+$(BUILD)/kernel.bin: kernel/kernel.asm kernel/console.inc kernel/disk.inc kernel/fat12.inc | $(BUILD)
+	$(ASM) -f bin -I kernel/ -o $@ $<
 
-$(IMAGE): $(BUILD)/boot.bin $(BUILD)/kernel.bin | $(BUILD)
-	$(PYTHON) -c "import sys; b=open(sys.argv[1],'rb').read(); k=open(sys.argv[2],'rb').read(); img=bytearray(368640); img[:len(b)]=b; img[512:512+len(k)]=k; open(sys.argv[3],'wb').write(img)" $(BUILD)/boot.bin $(BUILD)/kernel.bin $@
+$(IMAGE): $(BUILD)/boot.bin $(BUILD)/kernel.bin tools/mkimage.py | $(BUILD)
+	$(PYTHON) tools/mkimage.py $(BUILD)/boot.bin $(BUILD)/kernel.bin $@
 
 clean:
 	$(PYTHON) -c "import shutil; shutil.rmtree('$(BUILD)', ignore_errors=True)"
