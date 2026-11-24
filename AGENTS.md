@@ -59,4 +59,4 @@
 - Kernel binary size must not exceed `KERNEL_SECTORS * 512` bytes.
 - BIOS loads only the first sector at boot; all additional code must be loaded explicitly by the bootloader.
 - The filesystem driver targets FAT12 floppies with 512-byte sectors; buffer sizes in the kernel assume standard 360KB FAT/root sizes unless expanded.
-- PE/COFF loading is minimal: PE32 with MZ header, sections copied to `LOAD_SEG` (0x2000) by RVA, entry point far-called; executables must be 16-bit real-mode binaries linked for that layout.
+- PE/COFF loading is minimal: PE32 with MZ header, sections copied to `LOAD_SEG` (0x0A40) by RVA, entry point far-called; executables must be 16-bit real-mode binaries linked for that layout.

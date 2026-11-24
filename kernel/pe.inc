@@ -1,4 +1,4 @@
-LOAD_SEG equ 0x2000
+LOAD_SEG equ 0x0A40
 
 ; si = directory entry, dl = drive
 ; loads and executes PE/COFF image, returns on retf
@@ -95,7 +95,7 @@ exec_pe:
     mov ds, ax
     mov es, ax
 .farcall:
-    call 0x2000:0000
+    call 0x0A40:0000
 
     xor ax, ax
     mov ds, ax

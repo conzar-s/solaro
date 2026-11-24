@@ -10,26 +10,20 @@ putc:
 
     push ax
     push dx
-    push cx
-    mov cx, 0xFFFF
     mov dx, 0x3FD
-.wait:
     in al, dx
     test al, 0x20
-    jnz .send
-    loop .wait
-    pop cx
-    pop dx
-    pop ax
-    ret
-.send:
-    pop cx
+    jz .skip
     pop dx
     pop ax
     push dx
     mov dx, 0x3F8
     out dx, al
     pop dx
+    ret
+.skip:
+    pop dx
+    pop ax
     ret
 
 ; si = zero-terminated string

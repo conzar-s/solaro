@@ -23,10 +23,10 @@ start:
 
     mov byte [drive], 0
 .drive_loop:
-    mov si, msg_drive
+    mov si, msg_fd
     call print
     mov al, [drive]
-    add al, 'A'
+    add al, '0'
     call putc
     mov si, msg_colon
     call print
@@ -97,7 +97,7 @@ pe_rawsz dw 0
 pe_rawptr dw 0
 
 msg_boot db "Booting kernel...", 13, 10, 0
-msg_drive db "Drive ", 0
+msg_fd db "fd", 0
 msg_colon db ":/", 13, 10, 0
 msg_nl db 13, 10, 0
 msg_read_err db "  Read error", 13, 10, 0
